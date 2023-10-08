@@ -32,6 +32,8 @@ public class UniformCostSearchAlgo implements ISearchAlgo {
 								&& nodeInFrontier.getPathCost() > newNode.getPathCost()) {
 							frontier.remove(nodeInFrontier);
 							frontier.add(newNode);
+							break;
+
 						}
 					}
 					if (!explorer.contains(newNode) && !frontier.contains(newNode)) {
