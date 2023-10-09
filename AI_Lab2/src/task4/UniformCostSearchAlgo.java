@@ -30,8 +30,7 @@ public class UniformCostSearchAlgo implements ISearchAlgo {
 					for (Node nodeInFrontier : frontier) {
 						if (nodeInFrontier.getLabel().equals(newNode.getLabel())
 								&& nodeInFrontier.getPathCost() > newNode.getPathCost()) {
-							frontier.remove(nodeInFrontier);
-							frontier.add(newNode);
+							nodeInFrontier = newNode;
 							break;
 
 						}
@@ -49,8 +48,50 @@ public class UniformCostSearchAlgo implements ISearchAlgo {
 
 	@Override
 	public Node execute(Node root, String start, String goal) {
-		// TODO Auto-generated method stub
+		Queue<Node> frontier = new PriorityQueue<Node>(new NodeComparator());
+		List<Node> explorer = new ArrayList<>();
+		frontier.add(root);
+		boolean flag =  false;
+		while (!frontier.isEmpty()) {
+			Node current = frontier.poll();
+			explorer.add(current);
+			for (Node node : explorer) {
+				if(node.getLabel().equals(start)) {
+					flag = true;
+				}
+			}
+			if (current.getLabel().equals(goal) && flag) {
+				return current;
+			}
+
+			List<Node> list = current.getChildrenNodes();
+				for (int i = 0; i < list.size(); i++) {
+					Node node = list.get(i);
+					if(node.getLabel().equals(start)) {
+						frontier.clear();
+						frontier.add(node);
+						break;
+					}
+					Node newNode = new Node(node);
+					newNode.setParent(current);
+					newNode.setPathCost(newNode.getPathCost() + current.getPathCost());
+					for (Node nodeInFrontier : frontier) {
+						if (nodeInFrontier.getLabel().equals(newNode.getLabel())
+								&& nodeInFrontier.getPathCost() > newNode.getPathCost()) {
+							nodeInFrontier = newNode;
+							break;
+						}
+					}
+					if (!explorer.contains(newNode) && !frontier.contains(newNode)) {
+						frontier.add(newNode);
+					}
+			}
+			System.out.println(frontier);
+
+		}
+
 		return null;
 	}
+
 
 }
