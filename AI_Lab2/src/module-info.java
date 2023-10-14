@@ -5,5 +5,5 @@
  * @author DATA
  *
  */
-module AI_Lab1 {
+module AI_Lab2 {
 }
