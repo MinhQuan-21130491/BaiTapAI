@@ -27,12 +27,13 @@ public class UniformCostSearchAlgo implements ISearchAlgo {
 					Node newNode = new Node(node);
 					newNode.setParent(current);
 					newNode.setPathCost(newNode.getPathCost() + current.getPathCost());
+					System.out.println(newNode.getPathCost());
 					for (Node nodeInFrontier : frontier) {
 						if (nodeInFrontier.getLabel().equals(newNode.getLabel())
 								&& nodeInFrontier.getPathCost() > newNode.getPathCost()) {
-							nodeInFrontier = newNode;
-							break;
-
+							frontier.remove(nodeInFrontier);
+							frontier.add(newNode);
+break;
 						}
 					}
 					if (!explorer.contains(newNode) && !frontier.contains(newNode)) {
@@ -78,7 +79,8 @@ public class UniformCostSearchAlgo implements ISearchAlgo {
 					for (Node nodeInFrontier : frontier) {
 						if (nodeInFrontier.getLabel().equals(newNode.getLabel())
 								&& nodeInFrontier.getPathCost() > newNode.getPathCost()) {
-							nodeInFrontier = newNode;
+						frontier.remove(nodeInFrontier);
+						frontier.add(newNode);
 							break;
 						}
 					}
