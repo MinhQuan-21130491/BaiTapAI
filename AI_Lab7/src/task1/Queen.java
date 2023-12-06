@@ -1,4 +1,4 @@
-package task2;
+package task1;
 
 public class Queen {
 	private int row;
@@ -11,23 +11,23 @@ public class Queen {
 	}
 
 	public void move() {
-		setRow(row++);
-		if(row >= Node.N) {
-			setRow(0);
-		}
+		if (row < Node.N - 1) {
+			row++;
+		} else
+			this.row = 0;
 	}
-	// check whether this Queen can attack the given Queen (q)
+
+//check whether this Queen can attack the given Queen (q)
 	public boolean isConflict(Queen q) {
-		if(this.row == q.getRow()) return true;
-		if(calRow(row, q.getRow()) == calCol(column,q.getColumn())) return true;
+		// Check rows and columns
+		if (row == q.getRow() || column == q.getColumn())
+			return true;
+		// Check diagonals
+		else if (Math.abs(column - q.getColumn()) == Math.abs(row - q.getRow()))
+			return true;
 		return false;
 	}
-	public int calRow(int r1, int r2) {
-		return Math.abs(r1-r2);
-	}
-	public int calCol(int c1, int c2) {
-		return Math.abs(c1-c2);
-	}
+
 	public int getRow() {
 		return row;
 	}
@@ -39,8 +39,6 @@ public class Queen {
 	public void setRow(int row) {
 		this.row = row;
 	}
-	
-	
 
 	@Override
 	public String toString() {
